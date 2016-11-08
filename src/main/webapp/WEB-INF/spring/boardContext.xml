@@ -15,6 +15,7 @@
 <bean	id="boardService"
 		class="com.ktds.board.service.impl.BoardServiceImpl">
 	<property name="boardBiz" ref="boardBiz"></property>
+	<property name="userBiz" ref="userBiz"></property>
 </bean>
 
 </beans>

@@ -32,7 +32,9 @@ public class BoardServiceImpl implements BoardService{
 	public BoardVO getBoardById(String boardId, HttpSession session) {
 		// TODO Auto-generated method stub
 		UserVO user = (UserVO) session.getAttribute("_USER_");
-		return boardBiz.getBoardById(boardId, user.getUserId());
+		String userId = user.getUserId();
+		userBiz.updatePoint(userId, -5);//나중에 한번 읽은 글은 더이상 포인트가 감소하지 않도록 할 것임.
+		return boardBiz.getBoardById(boardId, userId);
 	}
 
 	@Override
@@ -49,8 +51,11 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public BoardVO getFileNames(String boardId) {
+	public BoardVO getFileNames(String boardId, HttpSession session) {
 		// TODO Auto-generated method stub
+		UserVO user = (UserVO) session.getAttribute("_USER_");
+		String userId = user.getUserId();
+		userBiz.updatePoint(userId, -5);//나중에 한번 읽은 글은 더이상 포인트가 감소하지 않도록 할 것임.
 		return boardBiz.getFileNames(boardId);
 	}
 }

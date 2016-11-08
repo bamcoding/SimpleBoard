@@ -101,8 +101,8 @@ public class BoardController {
 	
 	
 	@RequestMapping("/doDownload/{boardId}")
-	public void doDownloadAction(@PathVariable String boardId, HttpServletRequest request, HttpServletResponse response){
-		BoardVO board = boardService.getFileNames(boardId);
+	public void doDownloadAction(@PathVariable String boardId, HttpServletRequest request, HttpServletResponse response, HttpSession session){
+		BoardVO board = boardService.getFileNames(boardId, session);
 		DownloadUtil downloadFile = DownloadUtil.getInstance("D:"+File.separator+"uploadFile2");
 		try {
 			downloadFile.download(request, response, board.getRealFileName(), board.getDisplayFileName());

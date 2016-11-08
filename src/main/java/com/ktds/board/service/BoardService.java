@@ -15,6 +15,6 @@ public interface BoardService {
 
 	public boolean insertBoard(BoardVO board);
 
-	public BoardVO getFileNames(String boardId);
+	public BoardVO getFileNames(String boardId, HttpSession session);
 
 }
