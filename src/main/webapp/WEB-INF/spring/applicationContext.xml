@@ -8,6 +8,17 @@
 	<mvc:annotation-driven />
 	
 	<!-- intercepter 등록하기 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<mvc:exclude-mapping path="/login"/>
+			<mvc:exclude-mapping path="/signUp"/>
+			<mvc:exclude-mapping path="/doLogin"/>
+			<mvc:exclude-mapping path="/diSignUp"/>
+			<bean	id="loginIntercepter"
+					class="com.ktds.common.intercepter.LoginIntercepter"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 	
 	<!-- command validation -->
 	<bean 	id="validator"
@@ -46,6 +57,10 @@
 	<bean	id="userController"
 			class="com.ktds.user.web.UserController">
 		<property name="userService" ref="userService"></property>		
+	</bean>
+	<bean	id="boardController"
+			class="com.ktds.board.web.BoardController">
+		<property name="boardService" ref="boardService"></property>		
 	</bean>
 		
 </beans>

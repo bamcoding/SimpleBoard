@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+				"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardDao">
+
+	<select id="getNowDateTime" resultType="string">
+		SELECT	/* [sampleMapper.xml] [getNowDateTime] */
+				SYSDATE
+		FROM 	DUAL
+	</select>
+	<resultMap type="BoardVO" id="boardMap">
+		<id column="BRD_ID" property="boardId"/>
+		<result column="SBJ" property="subject"/>
+		<result column="CONT" property="content"/>
+		<result column="USR_ID" property="userId"/>
+		<result column="CRT_DT" property="createdDate"/>
+		<result column="HIT" property="hit"/>
+		<result column="RCMD" property="recommand"/>
+		<result column="DP_FL_NM" property="displayFileName"/>
+		<result column="RL_FL_NM" property="realFileName"/>
+		<association property="user" javaType="UserVO">
+			<id column="U_USR_ID" property="userId"/>
+			<result column="USR_NICK_NAME" property="userNickName"/>
+			<result column="U_CRT_DT" property="createdDate"/>
+			<result column="PNT" property="point"/>
+		</association>
+	</resultMap>
+	
+	<select id="getAllBoardList" resultMap="boardMap">
+		SELECT /* [boardDao.xml] [getAllBoardList] */
+				B.BRD_ID 
+				, B.SBJ 
+				, B.USR_ID 
+				, B.CRT_DT 
+				, B.HIT 
+				, B.RCMD
+				, B.DP_FL_NM
+				, B.RL_FL_NM
+				, U.USR_ID U_USR_ID
+				, U.USR_NICK_NAME
+				, U.CRT_DT U_CRT_DT
+				, U.PNT
+		FROM 	BRD B, USR U
+		WHERE	B.USR_ID = U.USR_ID
+	</select>
+	<select id="getBoardById" resultMap="boardMap" parameterType="string">
+		SELECT /* [boardDao.xml] [getBoardById] */
+				B.BRD_ID 
+				, B.SBJ 
+				, B.CONT
+				, B.USR_ID 
+				, B.CRT_DT 
+				, B.HIT 
+				, B.RCMD 
+				, B.DP_FL_NM
+				, B.RL_FL_NM
+				, U.USR_ID U_USR_ID
+				, U.USR_NICK_NAME
+				, U.CRT_DT U_CRT_DT
+				, U.PNT
+		FROM 	BRD B, USR U
+		WHERE	B.USR_ID = U.USR_ID
+		AND		B.BRD_ID = #{boardId}
+	</select>
+	<delete id="deleteBoardById" parameterType="string">
+		DELETE	/*[boardDao][deleteBoardById]*/
+		FROM	BRD
+		WHERE	BRD_ID = #{boardId}	
+	</delete>
+	<insert id="insertBoard" parameterType="BoardVO">
+		INSERT INTO SIMPLE_BOARD.BRD (
+										BRD_ID, SBJ, CONT, 
+										USR_ID, CRT_DT, HIT, 
+										RCMD, DP_FL_NM, RL_FL_NM) 
+							VALUES	 ( 
+										'BRD-'||TO_CHAR(SYSDATE, 'YYYY-MM-DD')||'-'||LPAD(BRD_ID_SEQ.NEXTVAL,6,0), 
+										#{subject},
+										#{content},
+										#{userId},
+										SYSDATE,
+										0,
+										0,
+										#{displayFileName},
+										#{realFileName} 
+									 )
+	</insert>
+	<update id="updateHit" parameterType="string">
+	UPDATE	/*[boardDao][updateHit]*/
+			SIMPLE_BOARD.BRD
+	SET		HIT = HIT+1
+	WHERE	BRD_ID = #{boardId}
+	</update>
+	<insert id="addHistory" parameterType="map">
+	INSERT INTO SIMPLE_BOARD.HIT_BRD_USR ( /*[boardDao]["addHistory"]*/
+										   HIT_ID
+										   , USR_ID
+										   , BRD_ID
+										   , CRT_DT) 
+								  VALUES ( 
+								  		   'HT-'||TO_CHAR(SYSDATE,'YYYYMMDD')||'-'||LPAD(HIT_ID_SEQ.NEXTVAL,6,0)
+										   , #{userId}
+										   , #{boardId}
+										   , SYSDATE )
+	</insert>
+	<select id="getHitbyId" parameterType="map" resultType="_int">
+	SELECT	/*[boardDao]["getHitbyId"]*/
+			COUNT(1)
+	FROM	HIT_BRD_USR 
+	WHERE	USR_ID=#{userId} 
+	AND		BRD_ID=#{boardId}
+	</select>
+
+</mapper>

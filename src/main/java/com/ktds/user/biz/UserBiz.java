@@ -8,4 +8,5 @@ public interface UserBiz {
 
 	public UserVO doLogin(UserVO userVO);
 
+	public boolean updatePoint(String userId, int point);
 }

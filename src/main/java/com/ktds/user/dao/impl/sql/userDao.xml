@@ -35,4 +35,10 @@
 		WHERE	USR_ID = #{userId}
 		AND		USR_HSD_PWD = #{userHashedPassword}
 	</select>
+		<update id="updatePoint" parameterType="map">
+	UPDATE	/*[userDao][updatePoint]*/
+			USR
+	SET		PNT = PNT + #{point}
+	WHERE	USR_ID = #{userId}
+	</update>
 </mapper>

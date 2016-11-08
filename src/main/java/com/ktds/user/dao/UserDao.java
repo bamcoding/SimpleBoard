@@ -10,4 +10,5 @@ public interface UserDao {
 
 	public UserVO getUser(UserVO userVO);
 
+	public int updatePoint(String userId, int point);
 }

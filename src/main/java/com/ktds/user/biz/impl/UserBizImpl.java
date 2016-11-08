@@ -53,5 +53,10 @@ public class UserBizImpl implements UserBiz{
 
 		return userDao.getUser(userVO);
 	}
-
+	
+	@Override
+	public boolean updatePoint(String userId, int point) {
+		// TODO Auto-generated method stub
+		return userDao.updatePoint(userId, point)>0;
+	}
 }

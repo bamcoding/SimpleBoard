@@ -60,7 +60,7 @@ public class UserController {
 				CookieUtil.removeCookie(response, "_USER_ID_");
 				CookieUtil.removeCookie(response, "_REMEMBER_YN_");
 			}
-			view.setViewName("redirect:/");
+			view.setViewName("redirect:/board");
 		}
 		else{
 			view.setViewName("redirect:login");
@@ -92,5 +92,4 @@ public class UserController {
 		
 		return view;
 	}
-
 }

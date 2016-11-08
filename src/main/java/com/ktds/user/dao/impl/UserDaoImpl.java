@@ -1,5 +1,8 @@
 package com.ktds.user.dao.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import com.ktds.user.dao.UserDao;
@@ -22,4 +25,11 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao {
 		return getSqlSession().selectOne("userDao.getUser", userVO);
 	}
 
+	@Override
+	public int updatePoint(String userId, int point) {
+		Map<String, Object> parameter = new HashMap<String, Object>();
+		parameter.put("userId", userId);
+		parameter.put("point", point);
+		return getSqlSession().update("userDao.updatePoint", parameter);
+	}
 }
