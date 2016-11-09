@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+<bean	id="historyDao"
+		class="com.ktds.admin.operation.history.dao.impl.HistoryDaoImpl">
+	<property name="sqlSessionTemplate" ref="sqlSessionTemplate"></property>
+</bean>
+
+<bean	id="historyBiz"
+		class="com.ktds.admin.operation.history.biz.impl.HistoryBizImpl">
+	<property name="historyDao" ref="historyDao"></property>
+</bean>
+
+<bean	id="historyService"
+		class="com.ktds.admin.operation.history.service.impl.HistoryServiceImpl">
+	<property name="historyBiz" ref="historyBiz"></property>
+</bean>
+
+</beans>

@@ -52,8 +52,8 @@ public class BoardController {
 		return view;
 	}
 	@RequestMapping("/delete/{boardId}")
-	public ModelAndView doDeleteAction(@PathVariable String boardId){
-		boolean isSuccess = boardService.deleteBoardById(boardId);
+	public ModelAndView doDeleteAction(@PathVariable String boardId, HttpSession session){
+		boolean isSuccess = boardService.deleteBoardById(boardId, session);
 		ModelAndView view = new ModelAndView();
 		view.setViewName("redirect:/board");
 		return view;

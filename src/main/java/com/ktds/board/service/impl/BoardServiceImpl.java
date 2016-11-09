@@ -28,19 +28,29 @@ public class BoardServiceImpl implements BoardService{
 		return boardBiz.getAllBoardList();
 	}
 
+	/**
+	 * 한 번 읽은 글은 조회수가 증가하지 않는다.
+	 * 당사자가 쓴 글은 조회수가 증가하지 않는다.
+	 */
 	@Override
 	public BoardVO getBoardById(String boardId, HttpSession session) {
 		// TODO Auto-generated method stub
 		UserVO user = (UserVO) session.getAttribute("_USER_");
 		String userId = user.getUserId();
-		userBiz.updatePoint(userId, -5);//나중에 한번 읽은 글은 더이상 포인트가 감소하지 않도록 할 것임.
+		
+		if(!boardBiz.getHitbyId(boardId,userId)){
+			userBiz.updatePoint(userId, -5);//나중에 한번 읽은 글은 더이상 포인트가 감소하지 않도록 할 것임.
+		}
+		
 		return boardBiz.getBoardById(boardId, userId);
 	}
 
 	@Override
-	public boolean deleteBoardById(String boardId) {
+	public boolean deleteBoardById(String boardId, HttpSession session) {
+		UserVO user = (UserVO) session.getAttribute("_USER_");
+		String userId = user.getUserId();
 		// TODO Auto-generated method stub
-		return boardBiz.deleteBoardById(boardId);
+		return boardBiz.deleteBoardById(boardId, userId);
 	}
 
 	@Override
@@ -55,7 +65,10 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		UserVO user = (UserVO) session.getAttribute("_USER_");
 		String userId = user.getUserId();
-		userBiz.updatePoint(userId, -5);//나중에 한번 읽은 글은 더이상 포인트가 감소하지 않도록 할 것임.
+		BoardVO board = boardBiz.getBoard(boardId);
+		if(!board.getUserId().equals(userId)){
+			userBiz.updatePoint(userId, -3);
+		}
 		return boardBiz.getFileNames(boardId);
 	}
 }

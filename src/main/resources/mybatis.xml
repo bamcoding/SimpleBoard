@@ -6,11 +6,11 @@
 	<typeAliases>
 		<typeAlias type="com.ktds.user.vo.UserVO" alias="UserVO" />
 		<typeAlias type="com.ktds.board.vo.BoardVO" alias="BoardVO" />
+		<typeAlias type="com.ktds.admin.operation.history.vo.HistoryVO" alias="HistoryVO" />
 		
 	</typeAliases>
 	<mappers>
 		<mapper resource="com/ktds/user/dao/impl/sql/userDao.xml"/>
 		<mapper resource="com/ktds/board/dao/impl/sql/boardDao.xml"/>
-	</mappers>
-
+		<mapper resource="com/ktds/admin/operation/history/dao/impl/sql/historyDao.xml"/>
 </configuration>

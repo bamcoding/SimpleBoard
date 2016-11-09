@@ -27,15 +27,22 @@ public class BoardVO {
 			return fileUpload;
 		}
 		public void setFileUpload(MultipartFile fileUpload) {
+			
 			this.fileUpload = fileUpload;
 		}
 		public String getDisplayFileName() {
+			if(displayFileName.length()==0||displayFileName==null){
+				displayFileName = "";
+			}
 			return displayFileName;
 		}
 		public void setDisplayFileName(String displayFileName) {
 			this.displayFileName = displayFileName;
 		}
 		public String getRealFileName() {
+			if(realFileName.length()==0||realFileName==null){
+				realFileName = "";
+			}
 			return realFileName;
 		}
 		public void setRealFileName(String realFileName) {

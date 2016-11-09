@@ -42,6 +42,13 @@
 				, U.PNT
 		FROM 	BRD B, USR U
 		WHERE	B.USR_ID = U.USR_ID
+<!-- 		<if test="searchType == 1">
+		AND SBJ LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<if test="searchType == 2">
+		AND		U.USR_NICK_NAME LIKE '%' || #{searchKeyword} || '%'
+		</if> -->
+		
 	</select>
 	<select id="getBoardById" resultMap="boardMap" parameterType="string">
 		SELECT /* [boardDao.xml] [getBoardById] */
@@ -73,7 +80,7 @@
 										USR_ID, CRT_DT, HIT, 
 										RCMD, DP_FL_NM, RL_FL_NM) 
 							VALUES	 ( 
-										'BRD-'||TO_CHAR(SYSDATE, 'YYYY-MM-DD')||'-'||LPAD(BRD_ID_SEQ.NEXTVAL,6,0), 
+										'BRD-'||TO_CHAR(SYSDATE, 'YYYYMMDD')||'-'||LPAD(BRD_ID_SEQ.NEXTVAL,6,0), 
 										#{subject},
 										#{content},
 										#{userId},
@@ -90,7 +97,7 @@
 	SET		HIT = HIT+1
 	WHERE	BRD_ID = #{boardId}
 	</update>
-	<insert id="addHistory" parameterType="map">
+	<insert id="addHitHistory" parameterType="map">
 	INSERT INTO SIMPLE_BOARD.HIT_BRD_USR ( /*[boardDao]["addHistory"]*/
 										   HIT_ID
 										   , USR_ID
@@ -108,6 +115,19 @@
 	FROM	HIT_BRD_USR 
 	WHERE	USR_ID=#{userId} 
 	AND		BRD_ID=#{boardId}
+	</select>
+	<select id="getBoardCount" resultType="_int" parameterType="BoardSearchVO">
+		SELECT	COUNT(1)
+		FROM	BRD B
+<!-- 		<if test="searchType == 1">
+			WHERE SBJ LIKE '%' || #{searchKeyword} || '%'
+		</if>
+		<if test="searchType == 2">
+				, USR U
+			WHERE	B.USR_ID = U.USR_ID
+			AND		U.USR_NICK_NAME LIKE '%' || #{searchKeyword} || '%'
+		</if> -->
+		
 	</select>
 
 </mapper>

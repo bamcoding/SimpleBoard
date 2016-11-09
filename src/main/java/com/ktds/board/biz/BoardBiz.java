@@ -14,10 +14,13 @@ public interface BoardBiz {
 
 	public BoardVO getBoardById(String boardId, String userId);
 
-	public boolean deleteBoardById(String boardId);
+	public boolean deleteBoardById(String boardId, String userId);
 
 	public boolean insertBoard(BoardVO board);
 
 	public BoardVO getFileNames(String boardId);
 	
+	public boolean getHitbyId(String boardId, String userId);
+	
+	public BoardVO getBoard(String boardId);
 }

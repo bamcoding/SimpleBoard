@@ -15,8 +15,11 @@ public interface BoardDao {
 	public int insertBoard(BoardVO board);
 
 	public int updateHit(String boardId);
-	public int addHistory(String boardId, String userId);
+	
+	public int addHitHistory(String boardId, String userId);
 
 	public int getHitbyId(String boardId, String userId);
+	
+	public int getBoardCount();
 
 }

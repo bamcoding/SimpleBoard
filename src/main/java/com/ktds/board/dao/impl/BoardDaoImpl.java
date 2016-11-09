@@ -42,11 +42,11 @@ public class BoardDaoImpl extends SqlSessionDaoSupport implements BoardDao{
 		return getSqlSession().update("boardDao.updateHit", boardId);
 	}
 	
-	public int addHistory(String boardId, String userId){
+	public int addHitHistory(String boardId, String userId){
 		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put("boardId", boardId);
 		parameter.put("userId", userId);
-		return getSqlSession().insert("boardDao.addHistory", parameter);
+		return getSqlSession().insert("boardDao.addHitHistory", parameter);
 	}
 
 	@Override
@@ -55,6 +55,12 @@ public class BoardDaoImpl extends SqlSessionDaoSupport implements BoardDao{
 		parameter.put("boardId", boardId);
 		parameter.put("userId", userId);
 		return getSqlSession().selectOne("boardDao.getHitbyId", parameter);
+	}
+
+	@Override
+	public int getBoardCount() {
+		// TODO Auto-generated method stub
+		return getSqlSession().selectOne("boardDao.getBoardCount");
 	}
 
 

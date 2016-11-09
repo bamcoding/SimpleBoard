@@ -11,7 +11,7 @@ public interface BoardService {
 
 	public BoardVO getBoardById(String boardId, HttpSession session);
 
-	public boolean deleteBoardById(String boardId);
+	public boolean deleteBoardById(String boardId, HttpSession session);
 
 	public boolean insertBoard(BoardVO board);
 

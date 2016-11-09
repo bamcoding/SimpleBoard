@@ -74,7 +74,7 @@
 		<!-- expression : 업무 경계 설정 Format -->
 			<!-- 트랜잭션 실행 범위 지정 및 모니터링 시작 설정-->
 	<aop:config>
-		<aop:pointcut	expression="execution(public * com.ktds..service.*Impl.*(..))" 
+		<aop:pointcut	expression="execution(public * com.ktds..service..*Impl.*(..))" 
 						id="servicePublicMethod"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePublicMethod"/>
 	</aop:config>

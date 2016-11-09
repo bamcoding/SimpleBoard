@@ -15,6 +15,9 @@
 			<mvc:exclude-mapping path="/signUp"/>
 			<mvc:exclude-mapping path="/doLogin"/>
 			<mvc:exclude-mapping path="/diSignUp"/>
+			<mvc:exclude-mapping path="/js/**"/>
+			<mvc:exclude-mapping path="/img/**"/>
+			<mvc:exclude-mapping path="/css/**"/>
 			<bean	id="loginIntercepter"
 					class="com.ktds.common.intercepter.LoginIntercepter"></bean>
 		</mvc:interceptor>
@@ -61,6 +64,10 @@
 	<bean	id="boardController"
 			class="com.ktds.board.web.BoardController">
 		<property name="boardService" ref="boardService"></property>		
+	</bean>
+	<bean	id="historyController"
+			class="com.ktds.admin.operation.history.web.HistoryController">
+		<property name="historyService" ref="historyService"></property>		
 	</bean>
 		
 </beans>
